@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:webfeed/webfeed.dart';
 
@@ -8,7 +9,7 @@ class Parser {
   Future loadRss() async {
     final response = await get(url);
     if (response.statusCode == 200) {
-      final feed = RssFeed.parse(response.body);
+      final feed = RssFeed.parse(utf8.decode(response.bodyBytes));
       return feed;
     } else {
       print("erreur : ${response.statusCode}");
